@@ -45,7 +45,7 @@
             height: 10px;
             background-color: black;
             display: inline-block;
-            margin: 2px;
+            margin-left: 12px;
         }
         .seg-g{
             width: 10px;
@@ -115,10 +115,15 @@
             width: 100%;
             height: 100%;
         }
+
+        .hide {
+            /* display: none !important; */
+            background-color: darkturquoise;
+        }
         
     </style>
 </head>
-<body>
+<body onload="startTime()">
     <div class="outer-box">
         <div class="inner-box">
     <div class="digit-1">
@@ -130,11 +135,11 @@
         <div></div>
         <div class="seg-d"></div>
         <div></div>
-        <div class="seg-a"></div>
+        <div class="seg-e"></div>
         <div class="box"></div>
-        <div class="seg-c"></div>
+        <div class="seg-g"></div>
         <div></div>
-        <div class="seg-d"></div>
+        <div class="seg-f"></div>
     </div>
     <div class="digit-2">
         <div class="seg-b"></div>
@@ -145,11 +150,11 @@
         <div></div>
         <div class="seg-d"></div>
         <div></div>
-        <div class="seg-a"></div>
+        <div class="seg-e"></div>
         <div class="box"></div>
-        <div class="seg-c"></div>
+        <div class="seg-g"></div>
         <div></div>
-        <div class="seg-d"></div>
+        <div class="seg-f"></div>
     </div>
     <div class="dec-1"></div>
     <div class="dec-2"></div>
@@ -162,11 +167,11 @@
         <div></div>
         <div class="seg-d"></div>
         <div></div>
-        <div class="seg-a"></div>
+        <div class="seg-e"></div>
         <div class="box"></div>
-        <div class="seg-c"></div>
+        <div class="seg-g"></div>
         <div></div>
-        <div class="seg-d"></div>
+        <div class="seg-f"></div>
     </div>
     <div class="digit-4">
         <div class="seg-b"></div>
@@ -177,14 +182,127 @@
         <div></div>
         <div class="seg-d"></div>
         <div></div>
-        <div class="seg-a"></div>
+        <div class="seg-e"></div>
         <div class="box"></div>
-        <div class="seg-c"></div>
+        <div class="seg-g"></div>
         <div></div>
-        <div class="seg-d"></div>
+        <div class="seg-f"></div>
     </div>
     </div>
 </div>
+
+<script>
+    const digit_1_seg_a = document.querySelector('.digit-1 .seg-a')
+    const digit_1_seg_b = document.querySelector('.digit-1 .seg-b')
+    const digit_1_seg_c = document.querySelector('.digit-1 .seg-c')
+    const digit_1_seg_d = document.querySelector('.digit-1 .seg-d')
+    const digit_1_seg_e = document.querySelector('.digit-1 .seg-e')
+    const digit_1_seg_f = document.querySelector('.digit-1 .seg-f')
+    const digit_1_seg_g = document.querySelector('.digit-1 .seg-g')
+
+    const digit_2_seg_a = document.querySelector('.digit-2 .seg-a')
+    const digit_2_seg_b = document.querySelector('.digit-2 .seg-b')
+    const digit_2_seg_c = document.querySelector('.digit-2 .seg-c')
+    const digit_2_seg_d = document.querySelector('.digit-2 .seg-d')
+    const digit_2_seg_e = document.querySelector('.digit-2 .seg-e')
+    const digit_2_seg_f = document.querySelector('.digit-2 .seg-f')
+    const digit_2_seg_g = document.querySelector('.digit-2 .seg-g')
+
+    const digit_3_seg_a = document.querySelector('.digit-3 .seg-a')
+    const digit_3_seg_b = document.querySelector('.digit-3 .seg-b')
+    const digit_3_seg_c = document.querySelector('.digit-3 .seg-c')
+    const digit_3_seg_d = document.querySelector('.digit-3 .seg-d')
+    const digit_3_seg_e = document.querySelector('.digit-3 .seg-e')
+    const digit_3_seg_f = document.querySelector('.digit-3 .seg-f')
+    const digit_3_seg_g = document.querySelector('.digit-3 .seg-g')
+
+    const digit_4_seg_a = document.querySelector('.digit-4 .seg-a')
+    const digit_4_seg_b = document.querySelector('.digit-4 .seg-b')
+    const digit_4_seg_c = document.querySelector('.digit-4 .seg-c')
+    const digit_4_seg_d = document.querySelector('.digit-4 .seg-d')
+    const digit_4_seg_e = document.querySelector('.digit-4 .seg-e')
+    const digit_4_seg_f = document.querySelector('.digit-4 .seg-f')
+    const digit_4_seg_g = document.querySelector('.digit-4 .seg-g')
+
+    
+    function startTime() {
+        const now = new Date()
+        let hours = now.getHours();
+        let minutes = now.getMinutes();
+        reset();
+        updateHours(hours)
+        updateMinutes(minutes);
+        console.log(now);
+        setTimeout(startTime, 1000);
+    }
+
+    function updateHours(hours) {
+        const secondDigit = hours % 10;
+        const firstDigit = Math.floor(hours / 10);
+        // updateDigit()
+        updateDigit(1, firstDigit);
+        updateDigit(2, secondDigit);
+    }
+
+    function updateMinutes(minutes) {
+        const firstDigit = Math.floor(minutes / 10);
+        const secondDigit = minutes % 10;
+        updateDigit(3, firstDigit);
+        updateDigit(4, secondDigit)
+    }
+
+    function reset() {
+        const hiddenElements = document.querySelectorAll('.hide');
+        hiddenElements.forEach(Element => {
+            Element.classList.remove('hide');
+        })
+
+    }
+
+    function updateDigit(digit, val) {
+        switch (val) {
+            case 0:
+                document.querySelector(`.digit-${digit} .seg-d`).classList.add('hide');
+                break;
+            case 1:
+                document.querySelector(`.digit-${digit} .seg-a`).classList.add('hide');
+                document.querySelector(`.digit-${digit} .seg-b`).classList.add('hide');
+                document.querySelector(`.digit-${digit} .seg-d`).classList.add('hide');
+                document.querySelector(`.digit-${digit} .seg-e`).classList.add('hide');
+                document.querySelector(`.digit-${digit} .seg-f`).classList.add('hide');
+                break;
+            case 2:
+                document.querySelector(`.digit-${digit} .seg-a`).classList.add('hide');
+                document.querySelector(`.digit-${digit} .seg-g`).classList.add('hide');
+                break;
+            case 3:
+                document.querySelector(`.digit-${digit} .seg-a`).classList.add('hide');
+                document.querySelector(`.digit-${digit} .seg-e`).classList.add('hide');
+                break;
+            case 4:
+                document.querySelector(`.digit-${digit} .seg-b`).classList.add('hide');
+                document.querySelector(`.digit-${digit} .seg-e`).classList.add('hide');
+                document.querySelector(`.digit-${digit} .seg-f`).classList.add('hide');
+                break;
+            case 5:
+                document.querySelector(`.digit-${digit} .seg-c`).classList.add('hide');
+                document.querySelector(`.digit-${digit} .seg-e`).classList.add('hide');
+                break;
+            case 6:
+                document.querySelector(`.digit-${digit} .seg-c`).classList.add('hide');
+                break;
+            case 7:
+                document.querySelector(`.digit-${digit} .seg-a`).classList.add('hide');
+                document.querySelector(`.digit-${digit} .seg-d`).classList.add('hide');
+                document.querySelector(`.digit-${digit} .seg-f`).classList.add('hide');
+                document.querySelector(`.digit-${digit} .seg-e`).classList.add('hide');
+                break;
+            case 9:
+                document.querySelector(`.digit-${digit} .seg-e`).classList.add('hide');
+        }
+    }
+    
+</script>
 
 </body>
 </html>
